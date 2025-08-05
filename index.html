@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>一様分布ランダム表示</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    #results { margin-top: 20px; }
+    .value { font-size: 24px; margin: 5px; }
+    #average { font-weight: bold; font-size: 20px; margin-top: 20px; color: green; }
+  </style>
+</head>
+<body>
+  <h1>一様分布ランダム表示</h1>
+  <p>0から4までの整数がランダムで生成されます。</p>
+  <button onclick="generateRandom()">値を生成</button>
+  <button onclick="resetApp()">リセット</button>
+  <div id="results"></div>
+  <div id="average"></div>
+
+  <script>
+    let results = [];
+    const resultsDiv = document.getElementById("results");
+    const averageDiv = document.getElementById("average");
+
+    function generateRandom() {
+      if (results.length >= 20) return;
+
+      const value = Math.floor(Math.random() * 5); // 0〜4のランダム値
+      results.push(value);
+
+      const valueElement = document.createElement("div");
+      valueElement.className = "value";
+      valueElement.textContent = `${results.length}回目: ${value}`;
+      resultsDiv.appendChild(valueElement);
+
+      if (results.length === 20) {
+        const sum = results.reduce((a, b) => a + b, 0);
+        const average = (sum / 20).toFixed(2);
+        averageDiv.textContent = `平均値: ${average}`;
+      }
+    }
+
+    function resetApp() {
+      results = [];
+      resultsDiv.innerHTML = "";
+      averageDiv.textContent = "";
+    }
+  </script>
+</body>
+</html>
